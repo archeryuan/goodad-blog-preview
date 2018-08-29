@@ -61,20 +61,27 @@ const BlogPost = ({node}) => {
 function IndexPage(props) {
   const { classes } = props;
   const { data } = props;
+  let wWidth = 960;
+
+  if(typeof window !== 'undefined' && window.innerWidth){
+    wWidth = window.innerWidth;
+  }
   return (
     <div className={classes.root}>
-      <GridList cellHeight={160} className={classes.gridList} cols={window.innerWidth < 900 ? 1 : 2}>
-        {data.allContentfulBlogPost.edges.map((edge) => (
-          <GridListTile key={edge.node.slug} cols={edge.node.cols || 1} rows={3} style={{
+      <GridList cellHeight={160} className={classes.gridList} cols={wWidth < 900 ? 1 : 2}>
+        {data.allContentfulBlogPost.edges.map((edge) => {if(edge.node.heroImage){return (
+          <GridListTile key={edge.node.id} cols={edge.node.cols || 1} rows={3} style={{
             paddingLeft: 20,
             paddingRight: 20
           }}>
             <Card className={classes.card}>
-              <CardMedia
-                className={classes.media}
-                image={edge.node.heroImage.responsiveResolution ? edge.node.heroImage.responsiveResolution.src : noImage}
-                title={edge.node.title}
-              />
+              <Link to={edge.node.slug}>
+                <CardMedia
+                  className={classes.media}
+                  image={edge.node.heroImage.responsiveResolution ? edge.node.heroImage.responsiveResolution.src : noImage}
+                  title={edge.node.title}
+                />
+              </Link>
               <CardContent>
                 <Typography gutterBottom variant="headline" component="h2" style={{
                   fontFamily: 'Montserrat, sans-serif',
@@ -97,7 +104,7 @@ function IndexPage(props) {
               <CardActions>
               </CardActions>
             </Card>
-          </GridListTile>))}
+          </GridListTile>)}} )}
       </GridList>
     </div>
   );
@@ -115,14 +122,17 @@ export const pageQuery = graphql`
    query pageQuery {
     allContentfulBlogPost (
     filter: {
-      node_locale: {eq: "en-US"}
+      node_locale: {eq: "en-US"},
+      title: {ne: null},
     },
     sort:{ fields: [publishDate], order: DESC }
     ) {
         edges {
-          node {
+          node{
+            id
             title
             slug
+            publishDate
             body{
               childMarkdownRemark {
                 excerpt

@@ -3,16 +3,34 @@ import PropTypes from 'prop-types';
 
 class BlogPost extends Component {
   render() {
-    const {
-      title,
-      body
-    } = this.props.data.contentfulBlogPost
-    return (
-      <div>
-        <h1>{title}</h1>
-        <div dangerouslySetInnerHTML={{__html: body.childMarkdownRemark.html}} />
-      </div>
-    )
+    if(!this.props.data.contentfulBlogPost){
+      return (
+        <div>
+          "No content!"
+        </div>
+      )
+    }else{
+      const {
+        title,
+        body
+      } = this.props.data.contentfulBlogPost
+      if(body){
+        return (
+          <div>
+            <h1>{title}</h1>
+            <div dangerouslySetInnerHTML={{__html: body.childMarkdownRemark.html}} />
+          </div>
+        )
+      }else{
+        return (
+          <div>
+            <h1>{title}</h1>
+          </div>
+        )
+      }
+
+    }
+
   }
 }
 
@@ -24,7 +42,10 @@ export default BlogPost
 
 export const pageQuery = graphql`
   query blogPostQuery($slug: String!){
-    contentfulBlogPost(slug: {eq: $slug}) {
+    contentfulBlogPost(
+      slug: {eq: $slug},
+      title: {ne: null}
+    ) {
       title
       slug
       body {

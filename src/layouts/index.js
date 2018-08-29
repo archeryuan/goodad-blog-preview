@@ -3,25 +3,29 @@ import PropTypes from 'prop-types'
 import Link from 'gatsby-link'
 import Helmet from 'react-helmet'
 import logo from "../assets/images/GoodAd-Blog-Logo.png";
+import lightLogo from "../assets/images/Logo-Light.png"
+import previewLogo from "../assets/images/preview.png"
 
 import '../assets/css/normalize.css'
 import '../assets/css/webflow.css'
 import '../assets/css/goodad.webflow.css'
 
-const Header = () => (
+const Header = (props) => {
+  let  showLogo = previewLogo;
+  return (
   <div className="sec-a-top-bar">
           <div data-collapse="medium" data-animation="over-right" data-duration={400} className="top-nav-bar-blog w-nav">
             <div className="con-nav-bar-blog w-container">
               <nav role="navigation" className="nav-menu-blog w-nav-menu">
                 <a id="Nav-Features" href="http://www.goodad.co" className="nav-link w-nav-link">Home</a>
                 <a id="Nav-Features" href="http://www.goodad.co/how-it-works.html" className="nav-link w-nav-link">How it works</a>
-                <a id="Nav-Pricing" href="/" className="nav-link w-nav-link w--current">Blog</a>
+                <a id="Nav-Pricing" href="https://blog.goodad.co" className="nav-link w-nav-link w--current">Blog</a>
                 <a href="mailto:info@goodad.co?subject=Inquiry%20to%20GoodAd" className="nav-link w-hidden-main w-nav-link">Contact Us</a>
                 <a href="https://app.goodad.co/auth/signUp" className="nav-link-mobile-login w-hidden-main w-nav-link">SIGNUP</a>
                 <a href="https://app.goodad.co" className="nav-link-mobile-signup w-hidden-main w-nav-link">LOGIN</a>
               </nav>
               <a href="index.html" id="Nav-Logo" className="link-top-logo w-nav-brand">
-                <img src={logo} width={60} className="blog-logo" />
+                 <img src={showLogo} width={60} className="blog-logo" />
               </a>
               <a id="Signup-from-FP" className="nav-tab-subscrible w-hidden-medium w-hidden-small w-hidden-tiny w-nav-link">Subscribe</a>
               <div className="menu-button-blog w-nav-button">
@@ -30,7 +34,7 @@ const Header = () => (
             </div>
           </div>
         </div>
-)
+)}
 
 const BlogHeader = () => (
       <div className="blog-sec-a">
@@ -38,23 +42,23 @@ const BlogHeader = () => (
           <div className="mask w-slider-mask">
             <div className="slide-1 w-slide">
               <div className="con-top w-container">
-                <h1 className="heading-white-top">HOW TO START DIGITAL MARKETING</h1><a id="Sec-A1-Create" href="/how-to-start-digital-marketing" className="nav-tab-subscrible middle w-button">READ</a></div>
+                <h1 className="heading-white-top">HOW TO START DIGITAL MARKETING</h1><a id="Sec-A1-Create" href="/如何開始網上宣傳" className="nav-tab-subscrible middle w-button">READ</a></div>
             </div>
             <div className="slide-2 w-slide">
               <div className="con-top w-container">
-                <h1 className="heading-white-top">5 TIPS TO WORKING WITH MARKETING AGENCY</h1><a id="Sec-A1-Create" href="/how-to-start-digital-marketing" className="nav-tab-subscrible middle w-button">READ</a></div>
+                <h1 className="heading-white-top">5 TIPS TO WORKING WITH MARKETING AGENCY</h1><a id="Sec-A1-Create" href="/如何開始網上宣傳" className="nav-tab-subscrible middle w-button">READ</a></div>
             </div>
             <div className="slide-3 w-slide">
               <div className="con-top w-container">
-                <h1 className="heading-white-top">DIFFERENCES BETWEEN<br />SEO AND SEM</h1><a id="Sec-A1-Create" href="/how-to-start-digital-marketing" className="nav-tab-subscrible middle w-button">READ</a></div>
+                <h1 className="heading-white-top">DIFFERENCES BETWEEN<br />SEO AND SEM</h1><a id="Sec-A1-Create" href="/如何開始網上宣傳" className="nav-tab-subscrible middle w-button">READ</a></div>
             </div>
             <div className="slide-4 w-slide">
               <div className="con-top w-container">
-                <h1 className="heading-white-top">DO YOU NEED A DIGITAL MARKETER?</h1><a id="Sec-A1-Create" href="/how-to-start-digital-marketing" className="nav-tab-subscrible middle w-button">READ</a></div>
+                <h1 className="heading-white-top">DO YOU NEED A DIGITAL MARKETER?</h1><a id="Sec-A1-Create" href="/如何開始網上宣傳" className="nav-tab-subscrible middle w-button">READ</a></div>
             </div>
             <div className="slide-5 w-slide">
               <div className="con-top w-container">
-                <h1 className="heading-white-top">PATH TO CREATING YOUR FIRST MARKETING CAMPAIGN</h1><a id="/how-to-start-digital-marketing" href="#Pricing" className="nav-tab-subscrible middle w-button">READ</a></div>
+                <h1 className="heading-white-top">PATH TO CREATING YOUR FIRST MARKETING CAMPAIGN</h1><a id="/如何開始網上宣傳" href="#Pricing" className="nav-tab-subscrible middle w-button">READ</a></div>
             </div>
           </div>
           <div className="left-arrow w-slider-arrow-left">
@@ -92,7 +96,7 @@ const Footer = () => (
                   <div className="footer-title">PRODUCT</div><a href="#" id="Footer-Features-link" className="footer-links">Features</a><a href="how-it-works.html" className="footer-links">How it works</a><a href="blog.html" className="footer-links w--current">Blog</a></div>
               </div>
             </div>
-            <div className="w-clearfix w-col w-col-5"><a href="index.html" className="link-footer-logo w-inline-block"><img src="images/Logo-Light.png" /></a>
+            <div className="w-clearfix w-col w-col-5"><a href="index.html" className="link-footer-logo w-inline-block"><img src={lightLogo} /></a>
               <div className="footer-copyright-text">GoodAd © 2018. All rights reserved</div>
             </div>
           </div>
@@ -100,25 +104,28 @@ const Footer = () => (
       </div>
 );
 
-const TemplateWrapper = ({ children }) => (
-  <div>
-    <Helmet
-      title="GoodAd Blog"
-      meta={[
-        { name: 'description', content: 'Sample' },
-        { name: 'keywords', content: 'sample, something' },
-      ]}
-    />
-    <Header />
-    <BlogHeader />
-    <div id="Features" className="sec-b-blog">
-      <div className="con-blog-list w-container">
-        {children()}
+const TemplateWrapper = (props) => {
+  const { children } = props;
+  return (
+    <div>
+      <Helmet
+        title="GoodAd Blog"
+        meta={[
+          { name: 'description', content: 'Sample' },
+          { name: 'keywords', content: 'sample, something' },
+        ]}
+      />
+      <Header />
+      <BlogHeader />
+      <div id="Features" className="sec-b-blog">
+        <div className="con-blog-list w-container">
+          {children()}
+        </div>
       </div>
+      <Footer />
     </div>
-    <Footer />
-  </div>
-)
+  )
+}
 
 TemplateWrapper.propTypes = {
   children: PropTypes.func,
